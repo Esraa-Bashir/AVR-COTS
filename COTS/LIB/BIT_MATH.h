@@ -1,0 +1,25 @@
+#ifndef BIT_MATH_H
+#define BIT_MATH_H
+
+#define SET_BIT(REG,Bit)	(REG|=(1<<Bit))
+#define CLR_BIT(REG,Bit)	(REG&= ~(1<<Bit))
+#define GET_BIT(REG,Bit)	((REG>>Bit)&1)
+#define TGL_BIT(REG,Bit)	(REG^=(1<<Bit))
+#define SET_HIG_NIB(REG)	(REG|=(-1<<(8*sizeof(REG)-4)))
+#define SET_LOW_NIB(REG)	(REG|=15)
+#define CLR_HIG_NIB(REG)	(REG &=~(-1<<(8*sizeof(REG)- 4)))	
+#define CLR_LOW_NIB(REG)	(REG &=~(15))
+#define GET_HIG_NIB(REG)	((REG>>(8*sizeof(REG)-4)))&(15)
+#define GET_LOW_NIB(REG)	((REG<<(8*sizeof(REG)-4))>>(8*sizeof(REG)-4))&15   //(REG&15)  
+#define TGL_HIG_NIB(REG)	(REG^=(-1<<(8*sizeof(REG)-4)))
+#define TGL_LOW_NIB(REG)	(REG^=15)
+#define ASSIGN_REG(REG,VALUE)	(REG = VALUE)
+#define ASSIGN_HIG_NIB(REG,VALUE)	 (REG=(REG&(~(-1<<(8*sizeof(REG)-4)))|(VALUE<<(8*sizeof(REG)-4))))
+#define ASSIGN_LOW_NIB(REG,VALUE)	  (REG=(REG&(~15))|VALUE)
+#define RSHFT_REG(REG,NO)	(unsigned(REG)>>=NO)
+#define LSHFT_REG(REG,NO)	(REG<<=NO)
+#define CRSHFT_REG(REG,NO)	(REG=(unsigned(REG)>>NO)|(REG<<(sizeof(REG)*8-NO)))
+#define CLSHFT_REG(REG,NO)	(REG=(REG<<NO)|(unsigned(REG)>>(sizeof(REG)*8 - NO)))
+#define conc_help(b7,b6,b5,b4,b3,b2,b1,b0) (0b##b7##b6##b5##b4##b3##b2##b1##b0)
+#define conc(b7,b6,b5,b4,b3,b2,b1,b0) 	conc_help(b7,b6,b5,b4,b3,b2,b1,b0)
+#endif
